@@ -35,7 +35,7 @@ class AuthController extends Controller
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
-
+                
                 Session::flash('status', 'danger');
                 Session::flash('message', 'Your account is not active yet, please contact admin!');
                 return redirect('/login');
