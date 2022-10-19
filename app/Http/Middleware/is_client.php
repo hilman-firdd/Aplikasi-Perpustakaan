@@ -17,10 +17,10 @@ class is_client
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role_id != 2) {
+        if(auth()->user()->role_id != 2) {
             return redirect('books');
         }
-        
         return $next($request);
+        
     }
 }
