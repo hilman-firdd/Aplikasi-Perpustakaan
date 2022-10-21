@@ -2,7 +2,6 @@
 @section('title', 'Dashboard')
 
 @section('content')
-
     <h2>Welcome, {{ auth()->user()->username }}</h2>
 
     <div class="row mt-5">
