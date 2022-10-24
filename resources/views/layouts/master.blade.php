@@ -24,10 +24,10 @@
                 <div class="sidebar col-lg-2 collapse d-lg-block" id="button-primary">
                     @if(Auth::user()->role_id == 1)
                         <a href="dashboard" class="{{ (request()->is('dashboard') ? 'active' : '') }}">Dashboard</a>
-                        <a href="books" @if(request()->route()->uri == 'books') class="active" @endif>Books</a>
+                        <a href="books" class="{{ (request()->is('categories*') ? 'active' : '') }}">Books</a>
                         <a href="categories" class="{{ (request()->is('categories*') ? 'active' : '') }}">Categories</a>
-                        <a href="users" @if(request()->route()->uri == 'users') class="active" @endif>Users</a>
-                        <a href="rent-logs" @if(request()->route()->uri == 'rent-logs') class="active" @endif>Rent Log</a>
+                        <a href="users" class="{{ (request()->is('users*') ? 'active' : '') }}">Users</a>
+                        <a href="rent-logs" class="{{ (request()->is('rent-logs*') ? 'active' : '') }}">Rent Log</a>
                         <a href="logout">Logout</a>
                     @else
                         <a href="profile" @if(request()->route()->uri == 'profile') class="active" @endif>Profile</a>
