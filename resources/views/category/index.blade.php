@@ -5,8 +5,8 @@
     <h1>Category List</h1>
 
     <div class="mt-5">
-        <a href="category-add" class="btn btn-primary">Add Data</a>
-        <a href="category-deleted" class="btn btn-primary">View Data Deleted</a>
+        <a href="{{ route('category.add') }}" class="btn btn-primary">Add Data</a>
+        <a href="{{ route('category.deleted') }}" class="btn btn-primary">View Data Deleted</a>
     </div>
 
     <div class="mt-5">
@@ -33,8 +33,8 @@
                         <td>{{ $data->name }}</td>
                         <td>
                             <div class="d-flex">
-                                <a href="category-edit/{{ $data->slug }}" class="btn btn-warning me-2">edit</a>
-                                <form method="POST" action="/category-delete/{{ $data->slug }}">
+                                <a href="{{ route('category.edit', $data->slug) }}" class="btn btn-warning me-2">edit</a>
+                                <form method="POST" action="{{ route('category.delete', $data->slug) }}">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger" onclick="return confirm('apakah yakin mau dihapus?')">Delete</button>

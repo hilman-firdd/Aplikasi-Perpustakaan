@@ -5,7 +5,7 @@
     <h1>Deleted Category List</h1>
 
     <div class="mt-5">
-        <a href="categories" class="btn btn-primary">Back</a>
+        <a href="{{ route('category.index') }}" class="btn btn-primary">Back</a>
     </div>
 
     <div class="mt-5">
@@ -32,7 +32,7 @@
                         <td>{{ $data->name }}</td>
                         <td>
                             <div class="d-flex">
-                                <a href="/category-restore/{{ $data->slug }}" class="btn btn-warning me-2">Restore</a>
+                                <a href="{{ route('category.restore', $data->slug) }}" class="btn btn-warning me-2">Restore</a>
                             </div>
                         </td>
                     </tr>

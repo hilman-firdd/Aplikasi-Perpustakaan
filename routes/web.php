@@ -39,14 +39,16 @@ Route::middleware('auth')->group(function() {
     
     Route::get('books', [BookController::class, 'index']);
     
-    Route::get('categories', [CategoryController::class, 'index']);
-    Route::get('category-add', [CategoryController::class, 'add']);
-    Route::post('category-add', [CategoryController::class, 'store']);
-    Route::get('category-edit/{slug}', [CategoryController::class, 'edit']);
-    Route::put('category-edit/{slug}', [CategoryController::class, 'update']);
-    Route::delete('category-delete/{slug}', [CategoryController::class, 'delete']);
-    Route::get('category-deleted', [CategoryController::class, 'deleted']);
-    Route::get('category-restore/{slug}', [CategoryController::class, 'restore']);
+    Route::prefix('categories')->group(function() {
+        Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('/add', [CategoryController::class, 'add'])->name('category.add');
+        Route::post('/add', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('/edit/{slug}', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::put('/edit/{slug}', [CategoryController::class, 'update'])->name('category.update');
+        Route::delete('/delete/{slug}', [CategoryController::class, 'delete'])->name('category.delete');;
+        Route::get('/deleted', [CategoryController::class, 'deleted'])->name('category.deleted');
+        Route::get('/restore/{slug}', [CategoryController::class, 'restore'])->name('category.restore');
+    });
     
     Route::get('users', [UserController::class, 'index']);
     
