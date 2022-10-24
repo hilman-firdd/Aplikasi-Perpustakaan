@@ -20,11 +20,11 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $this->validate($request, [
             'name' => 'required|unique:categories|max:100'
         ]);
 
-        $category = Category::create($request->all());
+        Category::create($request->all());
         return redirect('categories')->with('status', 'Category Added Successfuly');
     }
 
@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, $slug)
     {
-        $validated = $request->validate([
+        $this->validate($request, [
             'name' => 'required|unique:categories|max:100'
         ]);
 

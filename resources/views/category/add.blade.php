@@ -15,7 +15,7 @@
         </div>
         @endif
 
-        <form action="category-add" method="post">
+        <form action="{{ route('category.store') }}" method="post">
             @csrf
             <div>
                 <label for="name" class="form-label">Name</label>

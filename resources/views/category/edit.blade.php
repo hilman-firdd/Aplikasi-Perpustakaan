@@ -15,7 +15,7 @@
         </div>
         @endif
 
-        <form action="/category-edit/{{ $category->slug }}" method="post">
+        <form action="{{ route('category.update', $category->slug ) }}" method="post">
             @csrf
             @method('put')
             <div>
