@@ -37,8 +37,12 @@ Route::middleware('auth')->group(function() {
     
     Route::get('profile', [UserController::class, 'profile'])->middleware('is_client');
     
-    Route::get('books', [BookController::class, 'index']);
-    
+    Route::prefix('books')->group(function() {
+        Route::get('/', [BookController::class, 'index'])->name('books.index');
+        Route::get('/add', [BookController::class, 'add'])->name('books.add');
+        Route::post('/add', [BookController::class, 'store'])->name('books.store');
+    });
+
     Route::prefix('categories')->group(function() {
         Route::get('/', [CategoryController::class, 'index'])->name('category.index');
         Route::get('/add', [CategoryController::class, 'add'])->name('category.add');
@@ -50,7 +54,11 @@ Route::middleware('auth')->group(function() {
         Route::get('/restore/{slug}', [CategoryController::class, 'restore'])->name('category.restore');
     });
     
-    Route::get('users', [UserController::class, 'index']);
-    
-    Route::get('rent-logs', [RentLogController::class, 'index']);
+    Route::prefix('users')->group(function() {
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+    });
+
+    Route::prefix('rent-logs')->group(function() {
+        Route::get('/', [RentLogController::class, 'index'])->name('rent_logs.index');
+    });
 });
