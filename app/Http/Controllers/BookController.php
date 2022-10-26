@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -15,7 +16,8 @@ class BookController extends Controller
 
     public function add()
     {
-      return view('books.add');  
+      $categories = Category::all();
+      return view('books.add', compact('categories'));  
     }
 
     public function store(Request $request)
@@ -25,7 +27,6 @@ class BookController extends Controller
             'title' => 'required|max:255',
         ]);
 
-
         $newImage = '';
         if($request->file('image')) {
             $exten = $request->file('image')->getClientOriginalExtension();
@@ -34,7 +35,8 @@ class BookController extends Controller
         }
 
         $request['cover'] = $newImage;
-        Book::create($request->all());
+        $book = Book::create($request->all());
+        $book->categories()->sync($request->categories);
         return redirect('books')->with('status', 'Book Added Successfully');
     }
 }
