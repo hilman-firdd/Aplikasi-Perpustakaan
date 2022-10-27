@@ -41,6 +41,11 @@ Route::middleware('auth')->group(function() {
         Route::get('/', [BookController::class, 'index'])->name('books.index');
         Route::get('/add', [BookController::class, 'add'])->name('books.add');
         Route::post('/add', [BookController::class, 'store'])->name('books.store');
+        Route::get('/edit/{slug}', [BookController::class, 'edit'])->name('books.edit');
+        Route::put('/edit/{slug}', [BookController::class, 'update'])->name('books.update');
+        Route::delete('/delete/{slug}', [BookController::class, 'delete'])->name('books.delete');
+        Route::get('/deleted', [BookController::class, 'deleted'])->name('books.deleted');
+        Route::get('/restore/{slug}', [BookController::class, 'restore'])->name('books.restore');
     });
 
     Route::prefix('categories')->group(function() {

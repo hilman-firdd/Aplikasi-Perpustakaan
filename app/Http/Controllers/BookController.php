@@ -39,4 +39,50 @@ class BookController extends Controller
         $book->categories()->sync($request->categories);
         return redirect('books')->with('status', 'Book Added Successfully');
     }
+
+    public function edit($slug)
+    {
+        $book = Book::where('slug', $slug)->first();
+        $categories = Category::all();
+        return view('books.edit', compact('book', 'categories'));
+    }
+
+    public function update($slug, Request $request)
+    {
+        if($request->file('image')) {
+            $exten = $request->file('image')->getClientOriginalExtension();
+            $newImage = $request->title.'-'.now()->timestamp.'.'.$exten;
+            $request->file('image')->storeAs('cover', $newImage);
+            $request['cover'] = $newImage;
+        }
+
+        $book = Book::where('slug', $slug)->first();
+        $book->update($request->all());
+
+        if($request->categories) {
+            $book->categories()->sync($request->categories);
+        }
+        
+        return redirect('books')->with('status', 'Book Updated Successfully');
+    }
+
+    public function delete($slug)
+    {
+        $book = Book::where('slug', $slug)->first();
+        $book->delete();
+        return redirect('books')->with('status', 'Book Deleted Successfully');
+    }
+    
+    public function deleted()
+    {
+        $book = Book::onlyTrashed()->get();
+        return view('books.deleted', compact('book'));
+    }
+    
+    public function restore($slug)
+    {
+        $book = Book::withTrashed()->where('slug', $slug)->first();
+        $book->restore();
+        return redirect('books')->with('status', 'Book Restored Successfully');
+    }
 }
