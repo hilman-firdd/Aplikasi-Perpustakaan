@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+
 class UserController extends Controller
 {
     public function index()
     {
-        return view('user');
+        $user = User::where('role_id', 2)->get();
+        return view('users.user', compact('user'));
     }
 
     public function profile()
     {
-        return view('profile');
+        return view('users.profile');
     }
 }
