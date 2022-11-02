@@ -34,6 +34,13 @@ class UserController extends Controller
         $user = User::where('slug', $slug)->first();
         $user->status = 'active';
         $user->save();
-        return redirect('/users/user-detail/'. $slug)->with('status', 'Category Approved Successfuly');
+        return redirect('/users/user-detail/'. $slug)->with('status', 'User Approved Successfuly');
+    }
+    
+    public function destroy($slug)
+    {
+        $user = User::where('slug', $slug)->first();
+        $user->delete();
+        return redirect()->route('users.index')->with('status', 'User Deleted Successfuly');
     }
 }
