@@ -65,6 +65,8 @@ Route::middleware('auth')->group(function() {
         Route::get('/user-detail/{slug}', [UserController::class, 'show'])->name('users.show');
         Route::get('/user-approve/{slug}', [UserController::class, 'approve'])->name('users.approve');
         Route::delete('/user-ban/{slug}', [UserController::class, 'destroy'])->name('users.delete');
+        Route::get('user-banned', [UserController::class, 'bannedUser'])->name('users.banned');
+        Route::get('user-restore/{slug}', [UserController::class, 'restore'])->name('users.restore');
     });
 
     Route::prefix('rent-logs')->group(function() {
