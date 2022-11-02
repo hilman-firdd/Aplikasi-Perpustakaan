@@ -22,4 +22,10 @@ class UserController extends Controller
         $registered = User::where('status', 'inactive')->where('role_id', 2)->get();
         return view('users.registered', compact('registered'));
     }
+
+    public function show($slug)
+    {
+        $user = User::where('slug', $slug)->first();
+        return view('users.user-detail', compact('user'));
+    }
 }

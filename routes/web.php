@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function() {
     Route::prefix('users')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('users.index');
         Route::get('/registered-users', [UserController::class, 'registeredUser'])->name('users.registered');
+        Route::get('/user-detail/{slug}', [UserController::class, 'show'])->name('users.show');
     });
 
     Route::prefix('rent-logs')->group(function() {
