@@ -29,10 +29,10 @@
                         <a href="{{ route('category.index') }}" class="{{ (request()->is('categories*') ? 'active' : ''); }}">Categories</a>
                         <a href="{{ route('users.index') }}" class="{{ (request()->is('users*') ? 'active' : '') }}">Users</a>
                         <a href="{{ route('rent_logs.index') }}" class="{{ (request()->is('rent-logs*') ? 'active' : '') }}">Rent Log</a>
-                        <a href="logout">Logout</a>
+                        <a href="/logout">Logout</a>
                     @else
                         <a href="profile" @if(request()->route()->uri == 'profile') class="active" @endif>Profile</a>
-                        <a href="logout">Logout</a>
+                        <a href="/logout">Logout</a>
                     @endif
                 </div>
                 <div class="content p-5 col-lg-10">
