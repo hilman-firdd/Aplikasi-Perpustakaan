@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Category;
-use Illuminate\Http\Request;
 
 class PublicController extends Controller
 {
@@ -18,5 +16,4 @@ class PublicController extends Controller
             $books = Book::all();
         }
         return view('books.book-list', compact('books', 'categories'));
-    }
 }
