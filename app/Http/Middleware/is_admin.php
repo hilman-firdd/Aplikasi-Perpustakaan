@@ -18,7 +18,7 @@ class is_admin
     public function handle(Request $request, Closure $next)
     {
         if(auth()->user()->role_id != 1) {
-            return redirect('books');
+            return redirect('/');
         }
         
         return $next($request);

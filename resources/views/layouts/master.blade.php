@@ -23,16 +23,20 @@
         <div class="body-content h-100">
             <div class="row g-0 h-100">
                 <div class="sidebar col-lg-2 collapse d-lg-block" id="button-primary">
-                    @if(Auth::user()->role_id == 1)
-                        <a href="/dashboard" class="{{ (request()->is('dashboard') ? 'active' : '') }}">Dashboard</a>
-                        <a href="{{ route('books.index') }}" class="{{ (request()->is('books*') ? 'active' : ''); }}">Books</a>
-                        <a href="{{ route('category.index') }}" class="{{ (request()->is('categories*') ? 'active' : ''); }}">Categories</a>
-                        <a href="{{ route('users.index') }}" class="{{ (request()->is('users*') ? 'active' : '') }}">Users</a>
-                        <a href="{{ route('rent_logs.index') }}" class="{{ (request()->is('rent-logs*') ? 'active' : '') }}">Rent Log</a>
-                        <a href="/logout">Logout</a>
+                    @if(Auth::user())
+                        @if(Auth::user()->role_id == 1)
+                            <a href="/dashboard" class="{{ (request()->is('dashboard') ? 'active' : '') }}">Dashboard</a>
+                            <a href="{{ route('books.index') }}" class="{{ (request()->is('books*') ? 'active' : ''); }}">Books</a>
+                            <a href="{{ route('category.index') }}" class="{{ (request()->is('categories*') ? 'active' : ''); }}">Categories</a>
+                            <a href="{{ route('users.index') }}" class="{{ (request()->is('users*') ? 'active' : '') }}">Users</a>
+                            <a href="{{ route('rent_logs.index') }}" class="{{ (request()->is('rent-logs*') ? 'active' : '') }}">Rent Log</a>
+                            <a href="/logout">Logout</a>
+                            @else
+                            <a href="profile" @if(request()->route()->uri == 'profile') class="active" @endif>Profile</a>
+                            <a href="/logout">Logout</a>
+                            @endif
                     @else
-                        <a href="profile" @if(request()->route()->uri == 'profile') class="active" @endif>Profile</a>
-                        <a href="/logout">Logout</a>
+                            <a href="/login">Login</a>
                     @endif
                 </div>
                 <div class="content p-5 col-lg-10">
