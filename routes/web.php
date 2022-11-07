@@ -27,10 +27,10 @@ Route::middleware('is_guest')->group(function() {
     Route::post('/login', [AuthController::class, 'authenticate']);
     Route::get('register', [AuthController::class, 'register']);
     Route::post('register', [AuthController::class, 'registerProses']);
-    Route::get('profile', [UserController::class, 'profile']);
 });
 
 Route::middleware('auth')->group(function() {
+    Route::get('profile', [UserController::class, 'profile'])->middleware('is_client');
     Route::get('logout', [AuthController::class, 'logout']);
     
     
