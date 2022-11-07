@@ -6,7 +6,7 @@
      <div class="row">
         <div class="col-12 col-sm-6">
             <select name="category" id="category" class="form-control">
-                <option value="" disabled>Select Category</option>
+                <option value="">Select Category</option>
                 @foreach ($categories as $item)
                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
@@ -18,7 +18,6 @@
                 <button type="submit" class="btn btn-primary">Search</button>
             </div>
         </div>
-    
      </div>
  </form>
 
