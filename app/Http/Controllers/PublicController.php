@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use Illuminate\Http\Request;
 
 class PublicController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::all();
-        return view('books.book-list', compact('books'));
-    }
+        $categories = Category::all();
+
+        if($request->category || $request->title) {
+            $books = Book::where('title', 'like', '%'.$request->title.'%')->get();
+        }else{
+            $books = Book::all();
+        }
+        return view('books.book-list', compact('books', 'categories'));
 }
