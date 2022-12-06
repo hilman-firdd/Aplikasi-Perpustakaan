@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookRentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RentLogController;
@@ -20,7 +21,11 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', [PublicController::class, 'index']);
+Route::get('/', function() {
+    return redirect('/login');
+});
+
+Route::get('/buku-list', [PublicController::class, 'index'])->name('bukulist.index');
 
 Route::middleware('is_guest')->group(function() {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -30,13 +35,12 @@ Route::middleware('is_guest')->group(function() {
 });
 
 Route::middleware('auth')->group(function() {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('profile', [UserController::class, 'profile'])->middleware('is_client');
     Route::get('logout', [AuthController::class, 'logout']);
     
     
     Route::prefix('books')->middleware('is_admin')->group(function() {
-        Route::get('dashboard', [DashboardController::class, 'index']);
-
         Route::get('/', [BookController::class, 'index'])->name('books.index');
         Route::get('/add', [BookController::class, 'add'])->name('books.add');
         Route::post('/add', [BookController::class, 'store'])->name('books.store');
@@ -70,5 +74,10 @@ Route::middleware('auth')->group(function() {
 
     Route::prefix('rent-logs')->group(function() {
         Route::get('/', [RentLogController::class, 'index'])->name('rent_logs.index');
+    });
+
+    Route::prefix('book-rent')->group(function() {
+        Route::get('/', [BookRentController::class, 'index'])->name('book-rent.index');
+        Route::post('/store', [BookRentController::class, 'store'])->name('book-rent.store');
     });
 });
