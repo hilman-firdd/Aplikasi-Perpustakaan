@@ -10,14 +10,15 @@ class BookController extends Controller
 {
     public function index()
     {
+        $user = User::where('id', '!=', 1);
         $books = Book::all();
         return view('books.index', compact('books'));
     }
 
     public function add()
     {
-      $categories = Category::all();
-      return view('books.add', compact('categories'));  
+        $categories = Category::all();
+        return view('books.add', compact('categories'));
     }
 
     public function store(Request $request)
@@ -28,9 +29,9 @@ class BookController extends Controller
         ]);
 
         $newImage = '';
-        if($request->file('image')) {
+        if ($request->file('image')) {
             $exten = $request->file('image')->getClientOriginalExtension();
-            $newImage = $request->title.'-'.now()->timestamp.'.'.$exten;
+            $newImage = $request->title . '-' . now()->timestamp . '.' . $exten;
             $request->file('image')->storeAs('cover', $newImage);
         }
 
@@ -49,9 +50,9 @@ class BookController extends Controller
 
     public function update($slug, Request $request)
     {
-        if($request->file('image')) {
+        if ($request->file('image')) {
             $exten = $request->file('image')->getClientOriginalExtension();
-            $newImage = $request->title.'-'.now()->timestamp.'.'.$exten;
+            $newImage = $request->title . '-' . now()->timestamp . '.' . $exten;
             $request->file('image')->storeAs('cover', $newImage);
             $request['cover'] = $newImage;
         }
@@ -59,10 +60,10 @@ class BookController extends Controller
         $book = Book::where('slug', $slug)->first();
         $book->update($request->all());
 
-        if($request->categories) {
+        if ($request->categories) {
             $book->categories()->sync($request->categories);
         }
-        
+
         return redirect('books')->with('status', 'Book Updated Successfully');
     }
 
@@ -72,13 +73,13 @@ class BookController extends Controller
         $book->delete();
         return redirect('books')->with('status', 'Book Deleted Successfully');
     }
-    
+
     public function deleted()
     {
         $book = Book::onlyTrashed()->get();
         return view('books.deleted', compact('book'));
     }
-    
+
     public function restore($slug)
     {
         $book = Book::withTrashed()->where('slug', $slug)->first();
