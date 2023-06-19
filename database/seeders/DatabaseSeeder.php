@@ -39,10 +39,5 @@ class DatabaseSeeder extends Seeder
             'status' => 'active',
             'role_id' => 2
         ]);
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }
